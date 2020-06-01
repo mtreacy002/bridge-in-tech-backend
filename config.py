@@ -76,14 +76,14 @@ class LocalConfig(BaseConfig):
     # SQLALCHEMY_DATABASE_URI = "postgresql:///bit_schema"
     SQLALCHEMY_DATABASE_URI = BaseConfig.build_db_uri()
     
-    # Using elephantsql - BridgeInTech remote db
-    # SQLALCHEMY_DATABASE_URI = os.environ.get('DB_REMOTE_URL')
-
 class DevelopmentConfig(BaseConfig):
     # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = BaseConfig.build_db_uri()
-
+    
+    # Using elephantsql - BridgeInTech remote db
+    # https://bridge-in-tech-bit-test.herokuapp.com
+    SQLALCHEMY_DATABASE_URI = os.getenv('DB_REMOTE_URL')
+    
 class TestingConfig(BaseConfig):
     TESTING = True
     MOCK_EMAIL = True

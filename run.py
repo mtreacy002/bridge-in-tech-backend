@@ -60,17 +60,18 @@ def create_tables():
     from app.database.models.bit_schema.personal_background import PersonalBackgroundModel
     from app.database.models.bit_schema.mentorship_relation_extension import MentorshipRelationExtensionModel
 
-    # uncomment the line below if no dummy data needed
+    # uncomment the line below if no dummy data needed on INITIAL setup!
+    # Warning !!! Do not uncomment if this is not your INITIAL setup to database!
     # db.create_all()
 
-    # uncomment lines below if you want to add dummy data
-    from app.database.db_add_mock import add_mock_data
-    add_mock_data()
+    # uncomment lines below if you want to add dummy data on INITIAL setup!
+    # !!! Warning!!! Treat this with caution as it will mess up your db!!
+    # Warning !!! Do not uncomment if this is not your INITIAL setup to database!
+    
+    # from app.database.db_add_mock import add_mock_data # uncomment here
+    # add_mock_data()
 
-    # uncomment lines below if you want to test API endpoints
-    # from app.database.db_query_mock import query_mock_data
-    # query_mock_data()
-
+    
     @application.shell_context_processor
     def make_shell_context():
         return {
