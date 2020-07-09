@@ -7,7 +7,8 @@ from app import messages
 from app.utils.decorator_utils import http_response_namedtuple_converter
 
 
-BASE_MS_API_URL = "http://127.0.0.1:4000"
+# BASE_MS_API_URL = "http://127.0.0.1:4000"
+BASE_MS_API_URL = "https://bridge-in-tech-ms-test.herokuapp.com"
 AUTH_COOKIE = cookies.SimpleCookie()
 
 
@@ -36,6 +37,7 @@ def post_request(request_string, data):
             access_token_cookie = response_message.get("access_token")
             access_expiry_cookie = response_message.get("access_expiry")
             AUTH_COOKIE["Authorization"] = f"Bearer {access_token_cookie}"
+            logging.fatal(f"cookie is {AUTH_COOKIE['Authorization']}")
             AUTH_COOKIE["Authorization"]["expires"] = access_expiry_cookie
             result = http_response_checker(get_user(AUTH_COOKIE["Authorization"].value))
             if result.status_code != 200:
@@ -140,10 +142,12 @@ def put_request(request_string, token, data):
 
 
 def validate_token(token):
+    logging.fatal(f"token is {token}")
     if not token:
         return messages.AUTHORISATION_TOKEN_IS_MISSING, HTTPStatus.UNAUTHORIZED
     if AUTH_COOKIE:
         if token != AUTH_COOKIE["Authorization"].value:
+            logging.fatal(f"cookievalidate is {AUTH_COOKIE['Authorization']}")
             return messages.TOKEN_IS_INVALID, HTTPStatus.UNAUTHORIZED
         if  datetime.utcnow().timestamp() > AUTH_COOKIE["Authorization"]["expires"]:
             return messages.TOKEN_HAS_EXPIRED, HTTPStatus.UNAUTHORIZED
