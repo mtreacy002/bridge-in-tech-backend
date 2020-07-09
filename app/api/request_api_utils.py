@@ -7,7 +7,7 @@ from app import messages
 from app.utils.decorator_utils import http_response_namedtuple_converter
 
 
-BASE_MS_API_URL = "http://127.0.0.1:4000"
+BASE_MS_API_URL = "https://ms-for-bit-pr-backend.herokuapp.com"
 AUTH_COOKIE = cookies.SimpleCookie()
 
 

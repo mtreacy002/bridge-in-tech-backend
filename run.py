@@ -36,7 +36,7 @@ def create_app(config_filename: str) -> Flask:
 
     migrate = Migrate(app, db)
 
-    cors.init_app(app, resources={r"*": {"origins": "http://localhost:3000"}}) 
+    cors.init_app(app, resources={r"*": {"origins": "https://bridge-in-tech-web-heroku.herokuapp.com"}}) 
     
     from app.api.jwt_extension import jwt
 
@@ -77,7 +77,7 @@ def create_tables():
         MentorshipRelationExtensionModel,
     )
 
-    db.create_all()
+    # db.create_all()
 
     @application.shell_context_processor
     def make_shell_context():
