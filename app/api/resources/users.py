@@ -125,6 +125,7 @@ class LoginUser(Resource):
                 user = ast.literal_eval(user_json)
                 user_extension = UserExtensionDAO.get_user_additional_data_info(int(user['id']))
                 is_organization_representative = user_extension["is_organization_rep"]
+                AUTH_COOKIE["timezone"] = user_extension["timezone"]
                 return {
                     "access_token": result.message["access_token"],
                     "access_expiry": result.message["access_expiry"],

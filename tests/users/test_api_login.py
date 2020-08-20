@@ -56,7 +56,7 @@ class TestUserLoginApi(BaseTestCase):
         
         test_user_extension = UserExtensionModel(
             user_id=self.test_user1_data.id,
-            timezone="ALASKA_STANDARD_TIME"
+            timezone="AUSTRALIA_MELBOURNE"
         )
         test_user_extension.is_organization_rep = True
         test_user_extension.save_to_db()
@@ -103,7 +103,7 @@ class TestUserLoginApi(BaseTestCase):
         
         test_user_extension = UserExtensionModel(
             user_id=self.test_user1_data.id,
-            timezone="ALASKA_STANDARD_TIME"
+            timezone="AUSTRALIA_MELBOURNE"
         )
         test_user_extension.is_organization_rep = False
         test_user_extension.save_to_db()
