@@ -94,7 +94,9 @@ class LocalConfig(BaseConfig):
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
 
-    SQLALCHEMY_DATABASE_URI = BaseConfig.build_db_uri()
+    # Using elephantsql - BridgeInTech remote db
+    # https://bridge-in-tech-backend.herokuapp.com/
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DB_REMOTE_URL")
 
 
 class TestingConfig(BaseConfig):
