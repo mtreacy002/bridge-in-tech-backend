@@ -1,3 +1,4 @@
+import os
 import logging
 from http import HTTPStatus, cookies
 from datetime import datetime
@@ -7,7 +8,10 @@ from app import messages
 from app.utils.decorator_utils import http_response_namedtuple_converter
 
 
-BASE_MS_API_URL = "http://127.0.0.1:4000"
+# BASE_MS_API_URL = "http://127.0.0.1:4000"
+# BASE_MS_API_URL = "https://ms-bit-herok-ms-backend-xqcit6.herokuapp.com"
+BASE_MS_API_URL = os.getenv("BASE_MS_API_URL")
+CORS_ORIGIN = os.getenv("CORS_ORIGIN")
 AUTH_COOKIE = cookies.SimpleCookie()
 
 
@@ -15,7 +19,12 @@ def post_request(request_string, data):
     request_url = f"{BASE_MS_API_URL}{request_string}"
     try:
         response = requests.post(
-            request_url, json=data, headers={"Accept": "application/json"}
+            request_url,
+            json=data,
+            headers={
+                "Accept": "application/json",
+                "Access-Control-Allow-Origin": f"{CORS_ORIGIN}",
+            },
         )
         response.raise_for_status()
         response_message = response.json()
@@ -62,6 +71,7 @@ def get_headers(request_string, params):
         return {
             "Authorization": AUTH_COOKIE["Authorization"].value,
             "Accept": "application/json",
+            "Access-Control-Allow-Origin": f"{CORS_ORIGIN}",
         }
     if request_string == "/users/verified":
         return {
@@ -70,6 +80,7 @@ def get_headers(request_string, params):
             "page": str(params["page"]),
             "per_page": str(params["per_page"]),
             "Accept": "application/json",
+            "Access-Control-Allow-Origin": f"{CORS_ORIGIN}",
         }
     if request_string == "/organizations":
         return {
@@ -78,10 +89,12 @@ def get_headers(request_string, params):
             "page": str(params["page"]),
             "per_page": str(params["per_page"]),
             "Accept": "application/json",
+            "Access-Control-Allow-Origin": f"{CORS_ORIGIN}",
         }
     return {
         "Authorization": AUTH_COOKIE["Authorization"].value,
         "Accept": "application/json",
+        "Access-Control-Allow-Origin": f"{CORS_ORIGIN}",
     }
 
 
@@ -128,6 +141,7 @@ def put_request(request_string, token, data):
                 headers={
                     "Authorization": AUTH_COOKIE["Authorization"].value,
                     "Accept": "application/json",
+                    "Access-Control-Allow-Origin": f"{CORS_ORIGIN}",
                 },
             )
             response.raise_for_status()
